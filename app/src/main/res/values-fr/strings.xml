@@ -1,0 +1,107 @@
+<resources>
+    <string name="app_name">QR NFC Toolkit</string>
+    <string name="menu_inicio">Accueil</string>
+    <string name="menu_escanear_qr">Scanner QR</string>
+    <string name="menu_escanear_qr_desc">Lire QR et codes-barres</string>
+    <string name="menu_generar_qr">Générer QR</string>
+    <string name="menu_generar_qr_desc">Créez vos propres codes</string>
+    <string name="menu_leer_nfc">Lire NFC</string>
+    <string name="menu_leer_nfc_desc">Scanner les tags NFC</string>
+    <string name="menu_escribir_nfc">Écrire NFC</string>
+    <string name="menu_escribir_nfc_desc">Enregistrer les données</string>
+    <string name="menu_historial">Historique</string>
+    <string name="menu_historial_desc">Vos scans précédents</string>
+    <string name="menu_ajustes">Paramètres</string>
+    <string name="menu_ajustes_desc">Configurer l\'application</string>
+
+    <string name="settings_appearance">Apparence</string>
+    <string name="settings_theme_light">Clair</string>
+    <string name="settings_theme_dark">Sombre</string>
+    <string name="settings_theme_system">Système</string>
+
+    <string name="settings_language">Langue</string>
+    <string name="lang_es">Espagnol</string>
+    <string name="lang_en">Anglais</string>
+    <string name="lang_fr">Français</string>
+
+    <!-- Escanear QR -->
+    <string name="qr_scanner_title">Scanner Intelligent</string>
+    <string name="qr_scanner_permission_denied">L\'autorisation de la caméra est requise pour scanner.</string>
+    <string name="qr_scanner_request_permission">Demander l\'autorisation</string>
+    <string name="qr_scanner_hint">Placez le code QR dans le cadre</string>
+    <string name="qr_scanner_result_wifi">Réseau WiFi Détecté</string>
+    <string name="qr_scanner_result_url">Lien Web</string>
+    <string name="qr_scanner_result_text">Texte Détecté</string>
+    <string name="qr_scanner_action_connect">Se connecter</string>
+    <string name="qr_scanner_action_open">Ouvrir dans le navigateur</string>
+    <string name="qr_scanner_action_copy">Copier le texte</string>
+    <string name="qr_scanner_scan_another">Scanner un autre</string>
+    <string name="qr_scanner_copied">Copié dans le presse-papiers</string>
+
+    <!-- Generar QR -->
+    <string name="qr_generator_title">Générer QR</string>
+    <string name="qr_generator_type_label">Type de contenu</string>
+    <string name="qr_generator_custom_label">Personnalisation</string>
+    <string name="qr_generator_color_label">Couleur du code</string>
+    <string name="qr_generator_logo_label">Inclure le logo central</string>
+    <string name="qr_generator_action_generate">Générer QR</string>
+    <string name="qr_generator_error_incomplete">Remplissez les champs obligatoires</string>
+    <string name="qr_generator_share">Partager</string>
+    <string name="qr_generator_save">Enregistrer</string>
+    <string name="qr_generator_color_dialog_title">Choisissez une couleur</string>
+    <string name="qr_generator_color_dialog_close">Accepter</string>
+
+    <!-- NFC Common -->
+    <string name="nfc_status_ready">Prêt à scanner</string>
+    <string name="nfc_status_disabled">NFC désactivé</string>
+    <string name="nfc_status_unsupported">NFC non supporté</string>
+    <string name="nfc_action_settings">Aller aux paramètres</string>
+    <string name="nfc_hint_approach">Approchez un tag NFC de l\'arrière</string>
+
+    <!-- Leer NFC -->
+    <string name="nfc_read_title">Lecteur NFC</string>
+    <string name="nfc_read_error_desc">Votre appareil ne dispose pas de la technologie NFC.</string>
+    <string name="nfc_read_disabled_desc">Pour lire les tags, veuillez activer le NFC dans les paramètres.</string>
+    <string name="nfc_read_result_id">ID :</string>
+    <string name="nfc_read_result_content">Contenu :</string>
+    <string name="nfc_read_result_tech">Technologies :</string>
+    <string name="nfc_read_action_open">Ouvrir</string>
+    <string name="nfc_read_action_copy">Copier</string>
+    <string name="nfc_read_action_close">Fermer</string>
+
+    <!-- Escribir NFC -->
+    <string name="nfc_write_title">Écrire NFC</string>
+    <string name="nfc_write_question">Que souhaitez-vous enregistrer ?</string>
+    <string name="nfc_write_action_prepare">Préparer l\'écriture</string>
+    <string name="nfc_write_sheet_idle_title">Approchez le tag NFC</string>
+    <string name="nfc_write_sheet_idle_desc">Maintenez l\'appareil près de l\'arrière du tag</string>
+    <string name="nfc_write_success_title">Écriture réussie !</string>
+    <string name="nfc_write_success_desc">Les données ont été enregistrées correctement.</string>
+    <string name="nfc_write_error_title">Erreur d\'écriture</string>
+
+    <!-- Historial -->
+    <string name="history_title">Historique</string>
+    <string name="history_empty">Aucune activité récente</string>
+    <string name="history_filter_all">Tout</string>
+    <string name="history_filter_qr">QR</string>
+    <string name="history_filter_nfc">NFC</string>
+    <string name="history_type_qr_scan">QR Scanné</string>
+    <string name="history_type_qr_gen">QR Généré</string>
+    <string name="history_type_nfc_read">NFC Lu</string>
+    <string name="history_type_nfc_write">NFC Écrit</string>
+    <string name="history_action_delete">Supprimer</string>
+    <string name="history_action_clear">Tout effacer</string>
+    <string name="history_clear_confirm">Voulez-vous vraiment effacer tout l\'historique ?</string>
+
+    <!-- WiFi Section -->
+    <string name="wifi_ssid_label">SSID du réseau</string>
+    <string name="wifi_ssid_hint">Nom de votre WiFi</string>
+    <string name="wifi_pass_label">Mot de passe</string>
+    <string name="wifi_pass_hint">Clé d\'accès</string>
+    <string name="wifi_security_label">Sécurité</string>
+    <string name="wifi_use_current">Utiliser le réseau actuel</string>
+
+    <!-- Common -->
+    <string name="action_back">Retour</string>
+    <string name="loading_language">Changement de langue...</string>
+</resources>

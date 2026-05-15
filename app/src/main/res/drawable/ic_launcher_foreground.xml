@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="?attr/colorControlNormal">
+
+    <!-- Recuadros de anclaje del Código QR -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M3,3 h6 v6 H3 V3z M5,5 v2 h2 V5 H5z
+                          M3,15 h6 v6 H3 v-6z M5,17 v2 h2 v-2 H5z
+                          M15,3 h6 v6 h-6 V3z M17,5 v2 h2 V5 H17z" />
+
+    <!-- Ondas de transmisión NFC y punto base -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@android:color/white"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M14,21 c0,-3.87 3.13,-7 7,-7
+                          M17.5,21 c0,-1.93 1.57,-3.5 3.5,-3.5" />
+
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M20,20 h2 v2 h-2 z" />
+
+</vector>
