@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Network Security Config para QRNFCToolkit.
+    La app no hace peticiones de red propias, pero este archivo:
+    1. Bloquea explicitamente trafico cleartext (HTTP sin TLS)
+    2. Protege contra futuros cambios que inadvertidamente usen HTTP
+    3. Es buena practica requerida para apps en Google Play
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <!-- Confiar solo en CAs del sistema (no en CAs de usuario instaladas) -->
+            <certificates src="system"/>
+        </trust-anchors>
+    </base-config>
+</network-security-config>

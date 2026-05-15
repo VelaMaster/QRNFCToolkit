@@ -13,3 +13,14 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Seguridad: nunca subir keystores ni claves de firma al repositorio
+*.jks
+*.keystore
+*.p12
+keystore.properties
+release-keystore.jks
+
+# AAB/APK generados (no deben ir al repo)
+*.aab
+*.apk

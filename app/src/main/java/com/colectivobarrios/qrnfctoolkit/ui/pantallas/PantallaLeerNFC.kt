@@ -31,6 +31,7 @@ import com.colectivobarrios.qrnfctoolkit.R
 import com.colectivobarrios.qrnfctoolkit.datos.HistorialDao
 import com.colectivobarrios.qrnfctoolkit.datos.HistorialEntity
 import com.colectivobarrios.qrnfctoolkit.utilidades.NFCHelper
+import com.colectivobarrios.qrnfctoolkit.utilidades.UrlValidator
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -118,13 +119,23 @@ fun ScanningAnimationLocalized() {
 
 @Composable
 fun ResultNFCContentLocalized(result: NFCHelper.NFCResult, onDismiss: () -> Unit) {
-    val context = LocalContext.current; val isUrl = remember(result.payload) { result.payload?.startsWith("http", ignoreCase = true) == true }
+    val context = LocalContext.current
+    // Solo considerar URL si tiene esquema http/https valido (seguridad contra NFC malicioso)
+    val isUrl = remember(result.payload) { result.payload?.let { UrlValidator.looksLikeUrl(it) } == true }
     Column(modifier = Modifier.fillMaxWidth().padding(24.dp).navigationBarsPadding(), horizontalAlignment = Alignment.CenterHorizontally) {
         Icon(imageVector = if (isUrl) Icons.Rounded.Language else Icons.Rounded.Memory, contentDescription = null, modifier = Modifier.size(48.dp), tint = MaterialTheme.colorScheme.primary)
         Spacer(modifier = Modifier.height(16.dp)); Text(result.type, style = MaterialTheme.typography.headlineSmall, fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(16.dp)); Surface(color = MaterialTheme.colorScheme.surfaceContainerHighest, shape = RoundedCornerShape(12.dp), modifier = Modifier.fillMaxWidth()) { Column(modifier = Modifier.padding(16.dp)) { LabelValueLocalized(stringResource(R.string.nfc_read_result_id), result.id); if (result.payload != null) { Spacer(modifier = Modifier.height(8.dp)); LabelValueLocalized(stringResource(R.string.nfc_read_result_content), result.payload) }; Spacer(modifier = Modifier.height(8.dp)); LabelValueLocalized(stringResource(R.string.nfc_read_result_tech), result.techList.joinToString(", ")) } }
         Spacer(modifier = Modifier.height(24.dp)); Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-            if (isUrl) { Button(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(result.payload))); onDismiss() }, modifier = Modifier.weight(1f), shape = RoundedCornerShape(12.dp)) { Icon(Icons.AutoMirrored.Rounded.OpenInNew, null); Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.nfc_read_action_open)) } }
+            if (isUrl) { Button(onClick = {
+                // Validar esquema antes de abrir para proteger contra tags NFC maliciosos
+                if (UrlValidator.isSafeUrl(result.payload!!)) {
+                    context.startActivity(Intent(Intent.ACTION_VIEW, android.net.Uri.parse(result.payload)))
+                } else {
+                    Toast.makeText(context, "URL no segura bloqueada: esquema no permitido", Toast.LENGTH_LONG).show()
+                }
+                onDismiss()
+            }, modifier = Modifier.weight(1f), shape = RoundedCornerShape(12.dp)) { Icon(Icons.AutoMirrored.Rounded.OpenInNew, null); Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.nfc_read_action_open)) } }
             else if (result.payload != null) { Button(onClick = { val clipboard = context.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager; clipboard.setPrimaryClip(android.content.ClipData.newPlainText("NFC Content", result.payload)); Toast.makeText(context, context.getString(R.string.qr_scanner_copied), Toast.LENGTH_SHORT).show(); onDismiss() }, modifier = Modifier.weight(1f), shape = RoundedCornerShape(12.dp)) { Icon(Icons.Rounded.ContentCopy, null); Spacer(Modifier.width(8.dp)); Text(stringResource(R.string.nfc_read_action_copy)) } }
             OutlinedButton(onClick = onDismiss, modifier = Modifier.weight(1f), shape = RoundedCornerShape(12.dp)) { Text(stringResource(R.string.nfc_read_action_close)) }
         }

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import com.colectivobarrios.qrnfctoolkit.utilidades.UrlValidator
 import androidx.camera.core.CameraSelector
 import androidx.camera.mlkit.vision.MlKitAnalyzer
 import androidx.camera.view.CameraController.COORDINATE_SYSTEM_VIEW_REFERENCED
@@ -209,7 +210,8 @@ fun ScannerView(
 fun ResultContent(value: String, onDismiss: () -> Unit) {
     val context = LocalContext.current
     val wifiConfig = remember(value) { WiFiHelper.parseWiFiQR(value) }
-    val isUrl = remember(value) { value.startsWith("http", ignoreCase = true) }
+    // Solo reconocer como URL si tiene esquema http/https valido (seguridad contra esquemas peligrosos)
+    val isUrl = remember(value) { UrlValidator.looksLikeUrl(value) }
 
     Column(
         modifier = Modifier
@@ -263,8 +265,18 @@ fun ResultContent(value: String, onDismiss: () -> Unit) {
                 if (wifiConfig != null) {
                     WiFiHelper.connectToWiFi(context, wifiConfig)
                 } else if (isUrl) {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(value))
-                    context.startActivity(intent)
+                    // Validar esquema antes de abrir: protege contra QR maliciosos
+                    // con esquemas como javascript:, file://, intent://, etc.
+                    if (UrlValidator.isSafeUrl(value)) {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(value))
+                        context.startActivity(intent)
+                    } else {
+                        Toast.makeText(
+                            context,
+                            "URL no segura bloqueada: esquema no permitido",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 } else {
                     // Copiar al portapapeles
                     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
